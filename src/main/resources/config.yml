@@ -1,0 +1,16 @@
+#--------------------------------------------------
+# End to Overworld by DerexXD
+# Report all ur troubles at the GitHub @DereC4
+#--------------------------------------------------
+
+end-to-overworld:
+  enabled: true # Enable End → Overworld teleportation when falling into void
+  end-limit: -40.0 # Y-level threshold in End for teleportation (default: -40)
+  over-spawn-y-pos: 340 # Spawn Y in Overworld, -1 for highest block + 1 (default: 340)
+particles:
+  enabled: true # Show particle effects during teleportation
+
+# Fallback Settings
+fallback:
+  world: "auto" # Fallback world name or "auto" for first loaded world this will be Overworld if untouched
+

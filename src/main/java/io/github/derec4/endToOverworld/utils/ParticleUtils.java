@@ -13,41 +13,53 @@ public final class ParticleUtils {
      * Play the End->Overworld transition particles and teleport the player to target after delayTicks.
      */
     public static void playTransitionAndTeleport(JavaPlugin plugin, Player player, Location target, long delayTicks) {
-        final BukkitRunnable cloudRepeater = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!player.isOnline()) {
-                    cancel();
-                    return;
-                }
-                Location loc = player.getLocation();
-                // small cloud like the datapack: ~0.1 Y, count 1, tiny speed
-                player.getWorld().spawnParticle(Particle.CLOUD, loc.add(0, 0.1, 0), 1, 0, 0, 0, 0.001);
-            }
-        };
+        final boolean showParticles = ConfigManager.isShowParticles();
 
-        // Start repeating immediately every tick
-        cloudRepeater.runTaskTimer(plugin, 0L, 1L);
+        final BukkitRunnable cloudRepeater;
+
+        if (showParticles) {
+            cloudRepeater = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (!player.isOnline()) {
+                        cancel();
+                        return;
+                    }
+                    Location loc = player.getLocation();
+                    // small cloud like the datapack: ~0.1 Y, count 1, tiny speed
+                    player.getWorld().spawnParticle(Particle.CLOUD, loc.add(0, 0.1, 0), 1, 0, 0, 0, 0.001);
+                }
+            };
+
+            // Start repeating immediately every tick
+            cloudRepeater.runTaskTimer(plugin, 0L, 1L);
+        } else {
+            cloudRepeater = null;
+        }
 
         // After delayTicks, stop repeating, spawn burst particles, and teleport
         new BukkitRunnable() {
             @Override
             public void run() {
                 // stop the repeating small cloud
-                cloudRepeater.cancel();
+                if (cloudRepeater != null) {
+                    cloudRepeater.cancel();
+                }
 
                 if (!player.isOnline()) {
                     return;
                 }
 
-                Location loc = player.getLocation();
-                player.getWorld().spawnParticle(Particle.CRIT, loc.add(0, 0.5, 0), 10, 0.3, 0.3, 0.3, 0.001);
-                player.getWorld().spawnParticle(Particle.CLOUD, loc, 80, 0.8, 0.8, 0.8, 0.001);
+                if (showParticles) {
+                    Location loc = player.getLocation();
+                    player.getWorld().spawnParticle(Particle.CRIT, loc.add(0, 0.5, 0), 10, 0.3, 0.3, 0.3, 0.001);
+                    player.getWorld().spawnParticle(Particle.CLOUD, loc, 80, 0.8, 0.8, 0.8, 0.001);
 
-                if (target.getWorld() != null) {
-                    Location targetLoc = target.clone().add(0, 0.5, 0);
-                    target.getWorld().spawnParticle(Particle.CRIT, targetLoc, 10, 0.3, 0.3, 0.3, 0.001);
-                    target.getWorld().spawnParticle(Particle.CLOUD, targetLoc, 80, 0.8, 0.8, 0.8, 0.001);
+                    if (target.getWorld() != null) {
+                        Location targetLoc = target.clone().add(0, 0.5, 0);
+                        target.getWorld().spawnParticle(Particle.CRIT, targetLoc, 10, 0.3, 0.3, 0.3, 0.001);
+                        target.getWorld().spawnParticle(Particle.CLOUD, targetLoc, 80, 0.8, 0.8, 0.8, 0.001);
+                    }
                 }
 
                 if (!player.isOnline()) {

@@ -1,5 +1,6 @@
 package io.github.derec4.endToOverworld.listeners;
 
+import io.github.derec4.endToOverworld.utils.ConfigManager;
 import io.github.derec4.endToOverworld.utils.PlayerUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -14,7 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class EndVoidListener implements Listener {
     private final JavaPlugin plugin;
-    private static final double END_VOID_Y = -40.0;
 
     public EndVoidListener(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -22,6 +22,11 @@ public class EndVoidListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        // Check if End to Overworld teleportation is enabled
+        if (!ConfigManager.isEndToOverworldEnabled()) {
+            return;
+        }
+
         Player player = event.getPlayer();
         Location loc = player.getLocation();
         World world = loc.getWorld();
@@ -34,7 +39,8 @@ public class EndVoidListener implements Listener {
             return;
         }
 
-        if (loc.getY() < END_VOID_Y) {
+        // Use configurable end limit threshold
+        if (loc.getY() < ConfigManager.getEndLimit()) {
             PlayerUtils.teleportToOverworld(plugin, player, loc);
         }
     }
