@@ -1,1 +1,0 @@
-execute store result score Random fktool run random value 0..100

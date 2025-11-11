@@ -41,19 +41,15 @@ public final class ParticleUtils {
                 }
 
                 Location loc = player.getLocation();
-                // crit burst: offsets 0.3,0.3,0.3 count 10, small speed
                 player.getWorld().spawnParticle(Particle.CRIT, loc.add(0, 0.5, 0), 10, 0.3, 0.3, 0.3, 0.001);
-                // big cloud burst: offsets 0.8,0.8,0.8 count 80
                 player.getWorld().spawnParticle(Particle.CLOUD, loc, 80, 0.8, 0.8, 0.8, 0.001);
 
-                // Also spawn the burst at the target location in the destination world (if loaded)
                 if (target.getWorld() != null) {
                     Location targetLoc = target.clone().add(0, 0.5, 0);
                     target.getWorld().spawnParticle(Particle.CRIT, targetLoc, 10, 0.3, 0.3, 0.3, 0.001);
                     target.getWorld().spawnParticle(Particle.CLOUD, targetLoc, 80, 0.8, 0.8, 0.8, 0.001);
                 }
 
-                // Final safety check before teleport
                 if (!player.isOnline()) {
                     return;
                 }
