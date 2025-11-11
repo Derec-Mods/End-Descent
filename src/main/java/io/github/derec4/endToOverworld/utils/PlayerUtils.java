@@ -29,6 +29,6 @@ public final class PlayerUtils {
 
         // Teleport
         player.teleport(target);
-        plugin.getLogger().info("Teleported player " + player.getName() + " from End void to Overworld at " + target);
+//        plugin.getLogger().info("Teleported player " + player.getName() + " from End void to Overworld at " + target);
     }
 }
