@@ -25,16 +25,15 @@ public class EndVoidListener implements Listener {
         Player player = event.getPlayer();
         Location loc = player.getLocation();
         World world = loc.getWorld();
+
         if (world == null) {
             return;
         }
 
-        // Only handle players in the End
         if (world.getEnvironment() != World.Environment.THE_END) {
             return;
         }
 
-        // Teleport if below threshold
         if (loc.getY() < END_VOID_Y) {
             PlayerUtils.teleportToOverworld(plugin, player, loc);
         }
