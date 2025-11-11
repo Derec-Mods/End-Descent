@@ -1,0 +1,34 @@
+package io.github.derec4.endToOverworld.utils;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public final class PlayerUtils {
+
+    // Teleport the player from the End to the Overworld safely.
+    public static void teleportToOverworld(JavaPlugin plugin, Player player, Location from) {
+        World overworld = Bukkit.getWorlds().stream()
+                .filter(w -> w.getEnvironment() == World.Environment.NORMAL)
+                .findFirst()
+                .orElse(null);
+
+        if (overworld == null) {
+            plugin.getLogger().warning("No Overworld found to teleport player from End.");
+            return;
+        }
+
+        // Determine safe spawn: use player's X,Z, and highest block Y at that column + 1
+        double x = from.getX();
+        double z = from.getZ();
+
+        int safeY = overworld.getHighestBlockYAt((int) Math.floor(x), (int) Math.floor(z)) + 1;
+        Location target = new Location(overworld, x, safeY, z, from.getYaw(), from.getPitch());
+
+        // Teleport
+        player.teleport(target);
+        plugin.getLogger().info("Teleported player " + player.getName() + " from End void to Overworld at " + target);
+    }
+}
