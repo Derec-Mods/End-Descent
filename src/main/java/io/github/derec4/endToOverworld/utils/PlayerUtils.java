@@ -34,8 +34,7 @@ public final class PlayerUtils {
         int safeY = overworld.getHighestBlockYAt((int) Math.floor(x), (int) Math.floor(z)) + 1;
         Location target = new Location(overworld, x, safeY, z, from.getYaw(), from.getPitch());
 
-        // Teleport
-        player.teleport(target);
-//        plugin.getLogger().info("Teleported player " + player.getName() + " from End void to Overworld at " + target);
+        // Delegate particle effects and teleport to ParticleUtils
+        ParticleUtils.playTransitionAndTeleport(plugin, player, target);
     }
 }

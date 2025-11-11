@@ -8,6 +8,7 @@ public final class EndToOverworld extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // Inspiration from FunkyToc
         Bukkit.getPluginManager().registerEvents(new EndVoidListener(this), this);
     }
 

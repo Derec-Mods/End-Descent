@@ -9,6 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Inspiration from FunkyToc
+ */
 public class EndVoidListener implements Listener {
     private final JavaPlugin plugin;
     private static final double END_VOID_Y = -40.0;

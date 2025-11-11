@@ -1,0 +1,2 @@
+execute if score McVersion fktool matches 11904.. run return run function fkeaotool:systime/do
+execute if score McVersion fktool matches ..11903 run tellraw @a[tag=fkdev] {"text":"fktool.systime require 1.19.4+","color":"red"}
