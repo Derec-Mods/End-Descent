@@ -5,10 +5,10 @@
 
 end-to-overworld:
   enabled: true # Enable End → Overworld teleportation when falling into void
-  end-limit: -40.0 # Y-level threshold in End for teleportation (default: -40)
-  over-spawn-y-pos: 340 # Spawn Y in Overworld, -1 for highest block + 1 (default: 340)
+  end-limit: -20
+  over-spawn-y-pos: 1000
 particles:
-  enabled: true # Show particle effects during teleportation
+  enabled: true
 
 # Fallback Settings
 fallback:
