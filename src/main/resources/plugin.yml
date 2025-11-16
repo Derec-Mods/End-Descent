@@ -1,5 +1,5 @@
 name: EndToOverworld
-version: '1.0.0.2'
+version: '1.0.1.0'
 main: io.github.derec4.endToOverworld.EndToOverworld
 api-version: '1.18'
 prefix: DerexXD
