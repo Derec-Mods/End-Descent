@@ -22,8 +22,12 @@ public class EndVoidListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        // Debug: event entry
+        plugin.getLogger().info("[DEBUG] EndVoidListener.onPlayerMove called for player=" + event.getPlayer().getName());
+
         // Check if End to Overworld teleportation is enabled
         if (!ConfigManager.isEndToOverworldEnabled()) {
+            plugin.getLogger().info("[DEBUG] End->Overworld is disabled in config. Skipping.");
             return;
         }
 
@@ -32,17 +36,27 @@ public class EndVoidListener implements Listener {
         World world = loc.getWorld();
 
         if (world == null) {
+            plugin.getLogger().info("[DEBUG] Player world is null for player=" + player.getName());
             return;
         }
 
+        plugin.getLogger().info("[DEBUG] Player=" + player.getName() + " in world=" + world.getName() + " env=" + world.getEnvironment() + " y=" + loc.getY());
+
         if (world.getEnvironment() != World.Environment.THE_END) {
+            plugin.getLogger().info("[DEBUG] Player is not in THE_END. Skipping.");
             return;
         }
 
         // Use configurable end limit threshold
-        if (loc.getY() < ConfigManager.getEndLimit()) {
+        double endLimit = ConfigManager.getEndLimit();
+        double playerY = loc.getY();
+        plugin.getLogger().info("[DEBUG] Checking end limit: playerY=" + playerY + " endLimit=" + endLimit);
+
+        if (playerY < endLimit) {
+            plugin.getLogger().info("[DEBUG] Player went below end limit, teleporting to Overworld: player=" + player.getName());
             PlayerUtils.teleportToOverworld(plugin, player, loc);
+        } else {
+            plugin.getLogger().info("[DEBUG] Player Y is above limit, no teleport. playerY=" + playerY + " endLimit=" + endLimit);
         }
     }
 }
-
