@@ -30,7 +30,6 @@ public final class PlayerUtils {
         }
 
         if (overworld == null) {
-            plugin.getLogger().warning("No Overworld found to teleport player from End. Falling back to the first loaded world.");
             if (Bukkit.getWorlds().isEmpty()) {
                 plugin.getLogger().warning("No worlds available to teleport player.");
                 return;
@@ -38,7 +37,6 @@ public final class PlayerUtils {
 
             // Use the first loaded world as a safe fallback destination
             overworld = Bukkit.getWorlds().get(0);
-            plugin.getLogger().info("Falling back to world: " + overworld.getName());
         }
 
         // Determine safe spawn: use player's X,Z coordinates

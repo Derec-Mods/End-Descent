@@ -75,7 +75,7 @@ public final class ParticleUtils {
      * Convenience overload that uses 60 ticks (3 seconds) delay like the datapack.
      */
     public static void playTransitionAndTeleport(JavaPlugin plugin, Player player, Location target) {
-        playTransitionAndTeleport(plugin, player, target, 60L);
+        playTransitionAndTeleport(plugin, player, target, 20L);
     }
 }
 

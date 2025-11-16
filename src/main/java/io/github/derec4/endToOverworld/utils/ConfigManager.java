@@ -21,13 +21,13 @@ public final class ConfigManager {
         FileConfiguration config = plugin.getConfig();
 
         // Load End to Overworld settings
-//        endToOverworldEnabled = config.getBoolean("end-to-overworld.enabled", true);
-//        endLimit = config.getDouble("end-to-overworld.end-limit", -40.0);
-//        overSpawnYPos = config.getInt("end-to-overworld.over-spawn-y-pos", 340);
+        endToOverworldEnabled = config.getBoolean("end-to-overworld.enabled", true);
+        endLimit = config.getDouble("end-to-overworld.end-limit", -40.0);
+        overSpawnYPos = config.getInt("end-to-overworld.over-spawn-y-pos", 340);
 
         // Load Overworld to End settings
-        overworldToEndEnabled = config.getBoolean("overworld-to-end.enabled", false);
-        overLimit = config.getDouble("overworld-to-end.over-limit", 360.0);
+//        overworldToEndEnabled = config.getBoolean("overworld-to-end.enabled", false);
+//        overLimit = config.getDouble("overworld-to-end.over-limit", 360.0);
         endSpawnYPos = config.getInt("overworld-to-end.end-spawn-y-pos", -10);
         visitEndFirst = config.getBoolean("overworld-to-end.visit-end-first", false);
         showParticles = config.getBoolean("particles.enabled", true);
@@ -36,7 +36,6 @@ public final class ConfigManager {
 
         plugin.getLogger().info("Configuration loaded:");
         plugin.getLogger().info("  End→Overworld: " + (endToOverworldEnabled ? "enabled" : "disabled") + " (threshold: " + endLimit + ")");
-        plugin.getLogger().info("  Overworld→End: " + (overworldToEndEnabled ? "enabled" : "disabled") + " (threshold: " + overLimit + ")");
         plugin.getLogger().info("  Particles: " + (showParticles ? "enabled" : "disabled"));
     }
 
